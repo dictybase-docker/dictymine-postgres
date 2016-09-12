@@ -35,6 +35,16 @@ CHADO_PASS
 CHADO_DB
 ```
 
+### Kubernetes secrets
+The container support alternate use of `kubernetes secrets` instead of environment variables.
+To use them in kubernetes 
+
+* Mount the secrets under `/secrets` folder.
+* Use the following keys to match the corresponding env variables
+ * CHADO_USER : chadouser
+ * CHADO_DB : chadodb
+ * CHADO_PASS: chadopass
+
 All three variables are required.
 
 ## Usage

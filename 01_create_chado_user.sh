@@ -21,9 +21,9 @@ extract_secret() {
        CHADO_DB=$(cat /secrets/chadodb)
    fi
 
-   if [ -e "/secrets/chadouser" ] 
+   if [ -e "/secrets/chadopass" ] 
    then
-       CHADO_USER=$(cat /secrets/chadopass)
+       CHADO_PASS=$(cat /secrets/chadopass)
    fi
 }
 
