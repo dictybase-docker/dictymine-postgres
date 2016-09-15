@@ -6,5 +6,5 @@ RUN apt-get update \
 
 RUN mkdir -p /docker-entrypoint-initdb.d && mkdir -p /config
 COPY postgresql.conf /
-COPY *.conf /config/
+COPY [^p]*.conf /config/
 COPY *.sh /docker-entrypoint-initdb.d/ 
