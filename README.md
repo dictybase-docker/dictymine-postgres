@@ -48,14 +48,6 @@ CHADO_PASS
 CHADO_DB
 ```
 
-And their corresponding file variables.
-
-```
-CHADO_USER_FILE
-CHADO_PASS_FILE
-CHADO_DB_FILE
-```
-
 ## Usage
 It's identical to the base image, read the documentation
 [here](https://hub.docker.com/_/postgres/)
