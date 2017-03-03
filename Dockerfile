@@ -1,10 +1,8 @@
-FROM dictybase/postgres:9.4
+FROM postgres:9-5-alpine
 MAINTAINER Siddhartha Basu<siddhartha-basu@northwestern.edu>
-RUN apt-get update \
-    && apt-get -y install curl \
-    && rm -rf /var/lib/apt/lists/* 
 
-RUN mkdir -p /docker-entrypoint-initdb.d && mkdir -p /config
-COPY postgresql.conf /
-COPY [^p]*.conf /config/
-COPY *.sh /docker-entrypoint-initdb.d/ 
+# place for custom configuration files
+RUN mkdir -p /etc/postgresql/conf.d
+COPY postgresql.conf /etc/postgresql
+COPY [^p]*.conf /etc/postgresql/conf.d
+COPY *.{sh,sql} /docker-entrypoint-initdb.d/ 
