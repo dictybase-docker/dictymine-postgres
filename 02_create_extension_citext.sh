@@ -1,24 +1,17 @@
 #!/bin/bash
-set -x
-
-extract_secret() {
-   if [ -e "/secrets/chadodb" ] 
-   then
-       CHADO_DB=$(cat /secrets/chadodb)
-   fi
-}
+set -e
 
 create_extension_citext() {
+    file_env 'CHADO_DB'
     if [ "${CHADO_DB+defined}" ]
     then
-        psql --username postgres --dbname ${CHADO_DB} <<-EOSQL
+        psql -v ON_ERROR_STOP=1 --username ${POSTGRES_USER} --dbname ${CHADO_DB} <<-EOSQL
             CREATE EXTENSION citext;
 EOSQL
     fi
 }
 
 main() {
-    extract_secret
     create_extension_citext
 }
 

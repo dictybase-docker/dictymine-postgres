@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -e
 
 create_chado_user() {
     file_env 'CHADO_USER'
