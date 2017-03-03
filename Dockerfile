@@ -5,4 +5,4 @@ MAINTAINER Siddhartha Basu<siddhartha-basu@northwestern.edu>
 RUN mkdir -p /etc/postgresql/conf.d
 COPY postgresql.conf /etc/postgresql/
 COPY [^p]*.conf /etc/postgresql/conf.d/
-COPY *.{sh,sql} /docker-entrypoint-initdb.d/ 
+COPY *.sh /docker-entrypoint-initdb.d/ 
