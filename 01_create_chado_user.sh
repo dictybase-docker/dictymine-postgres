@@ -1,36 +1,14 @@
 #!/bin/bash
 set -x
 
-register_etcd() {
-    if [ ${ETCD_CLIENT_SERVICE_HOST+defined} ]
-    then
-        curl http://${ETCD_CLIENT_SERVICE_HOST}:${ETCD_CLIENT_SERVICE_PORT}/v2/keys/migration/postgresql -XPUT -d value="complete"
-    else
-        echo "did not register with etcd"
-    fi
-}
-
-extract_secret() {
-   if [ -e "/secrets/chadouser" ] 
-   then
-       CHADO_USER=$(cat /secrets/chadouser)
-   fi
-
-   if [ -e "/secrets/chadodb" ] 
-   then
-       CHADO_DB=$(cat /secrets/chadodb)
-   fi
-
-   if [ -e "/secrets/chadopass" ] 
-   then
-       CHADO_PASS=$(cat /secrets/chadopass)
-   fi
-}
-
 create_chado_user() {
+    file_env 'CHADO_USER'
+    file_env 'CHADO_PASS'
+    file_env 'CHADO_DB'
+
     if [ "${CHADO_USER+defined}" -a "${CHADO_PASS+defined}" -a "${CHADO_DB+defined}" ]
     then
-        psql --username postgres <<-EOSQL
+        psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
             CREATE ROLE $CHADO_USER WITH CREATEDB LOGIN ENCRYPTED PASSWORD '$CHADO_PASS';
             CREATE DATABASE $CHADO_DB OWNER $CHADO_USER;
 EOSQL
@@ -38,9 +16,7 @@ EOSQL
 }
 
 main() {
-    extract_secret
     create_chado_user
-    register_etcd
 }
 
 main
