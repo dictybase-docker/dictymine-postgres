@@ -1,4 +1,4 @@
-# Postgresql instance for chado database
+# Postgresql(9.5) instance for chado database
 This is a source repository for [docker](http://docker.io) image primarily
 designed to run [chado](http://gmod.org/wiki/Chado) database instance in
 postgresql container. It is based on the generic alpine postgresql(9.5)
