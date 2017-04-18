@@ -1,13 +1,8 @@
-# Postgresql(9.5) instance for chado database
+# Postgresql(9.5) instance for intermine database
 This is a source repository for [docker](http://docker.io) image primarily
-designed to run [chado](http://gmod.org/wiki/Chado) database instance in
+designed to run [intermine backend](http://intermine.org) database instance in
 postgresql container. It is based on the generic alpine postgresql(9.5)
 [image](https://hub.docker.com/_/postgres/). 
-
-## Additional features/properties
-It is __important__ to remember that building or running the image will not
-instantiate a chado schema in the database.  Rather, the schema has to be
-loaded after the container starts.
 
 ### Configuration files
 Adds bunch of fined grained database configurations that are available in
@@ -38,14 +33,16 @@ POSTGRES_INIT_ARG_FILE
 ```
 
 ## For regular user
-Provide a set of environmental variables to create a database and a
+Provide a set of environmental variables to create a intermine databases and intermine
 regular(not superuser) database user during the initialization process. Here
 are the variables.
 
 ```
-CHADO_USER 
-CHADO_PASS
-CHADO_DB
+INTERMINE_USER 
+INTERMINE_PASSWORD
+INTERMINE_DB
+INTERMINE_ITEMS_DB
+INTERMINE_USERS_DB
 ```
 
 ## Usage
@@ -55,6 +52,6 @@ It's identical to the base image, read the documentation
 ## Deploy
 The container is intended to be deployed in [kubernetes](http://kubernetes.io)
 using [helm](https://github.com/kubernetes/helm). Use the corresponding
-[chart](https://github.com/dictybase-docker/kubernetes-charts/tree/master/chado-postgres)
+[chart](https://github.com/dictybase-docker/kubernetes-charts/tree/master/dictymine-postgres)
 for  deployment. 
 
